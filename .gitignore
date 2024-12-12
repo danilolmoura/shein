@@ -1,0 +1,62 @@
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environments
+.venv/
+env/
+venv/
+.env/
+.env.bak/
+venv.bak/
+
+# IDE/Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Flask instance folder (for Flask specific data)
+instance/
+
+# Flask config files (if sensitive or environment-specific)
+*.env
+
+# Logs
+*.log
+*.log.*
+
+# Coverage reports
+.coverage
+nosetests.xml
+coverage.xml
+*.cover
+
+# Distribution and packaging
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+sdist/
+var/
+*.tar.gz
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# pyenv
+.python-version
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+Desktop.ini
+
+# Other Python-related files
+pip-wheel-metadata/
+*.pyd
