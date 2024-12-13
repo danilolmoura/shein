@@ -1,32 +1,73 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title>Título da Página</title>
 </head>
 
-<body>
-    <div class="container">
-        <header class="mt-5">
-            <h1>Bem-vindo à nossa Home Page!</h1>
-        </header>
+<body style="color: blues;">
+    <div style="display: flex; align-items: center; font-size: xx-large;">
+        <div style="margin-left: 20px; width: 200px;">
+            <h3>Shein</h3>
+        </div>
 
-        <section class="mt-4">
-            <p>Esta é uma aplicação web simples desenvolvida com Flask.</p>
-            <p>Explore as funcionalidades do nosso site e aproveite!</p>
-        </section>
+        <div style="margin-left: 20px; width: 500px;">
+            <input type="text" id="buscar" name="buscar" placeholder="Insira um produto">
+        </div>
 
-        <footer class="mt-5">
-            <p>&copy; 2024 Meu App Flask</p>
-        </footer>
+        <div style=" width: 200px;">
+            icones
+        </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <p>
+        Esta é uma tag para texto
+    </p>
+
+    ---------------------
+
+    <h1>
+        Esta é uma tag de cabeçalho grande
+    </h1>
+
+    <h2 style="color: rgb(74, 14, 82);">
+        Esta é uma tag de cabeçalho médio
+    </h2>
+
+    <h6>
+        Esta é uma tag de cabeçalho pequeno
+    </h6>
+
+    <br />
+
+    <a href="http://127.0.0.1:5000/produtos">
+        Ir para produtos
+    </a>
+
+    <img src="{{ url_for('static', filename='images/google.png') }}" alt="Descrição da imagem">
+
+    <h6>
+        Lista de itens abaixo:
+    </h6>
+
+    <ul>
+        <li>Primeiro item</li>
+        <li>Segundo item</li>
+    </ul>
+
+    <ol>
+        <li>Primeiro item</li>
+        <li>Segundo item</li>
+    </ol>
+
+
+
+    <p>Texto dentro de uma div</p>
+
+    </div>
+
 </body>
 
 </html>

@@ -1,15 +1,17 @@
 <div>
-    <h3>Aqui estão os produtos:</h3>
+    <div>
+        <h3>Aqui estão os produtos:</h3>
+    </div>
+
+
+    {% for produto in produtos %}
+    <div>
+        <p>Nome: {{produto.nome}}</p>
+        <p>Preço: {{produto.preco}}</p>
+        <p>Categoria: {{produto.categoria}}</p>
+    </div>
+
+    <br />
+    <br />
+    {% endfor %}
 </div>
-
-
-{% for produto in produtos %}
-<div>
-    <p>Nome: {{produto.nome}}</p>
-    <p>Preço: {{produto.preco}}</p>
-    <p>Categoria: {{produto.categoria}}</p>
-</div>
-
-<br />
-<br />
-{% endfor %}
