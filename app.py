@@ -5,7 +5,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    categorias = ["Roupas", "Feminino", "Plus Size", "Masculino", "Bebê & Maternidade", "Sapatos e Bolsas"]
+    categorias = {
+        "roupas": "Roupas",
+        "feminino": "Feminino",
+        "plus_size": "Plus Size",
+        "masculino": "Masculino",
+        "bebe_maternidade": "Bebê & Maternidade",
+        "sapatos_bolsas": "Sapatos e Bolsa",
+    }
 
     return render_template('index.html', categorias=categorias)
 
@@ -17,22 +24,27 @@ def produtos(categoria):
         {
             "nome": "vestido",
             "preco": 79.99,
-            "categoria": "Roupas",
+            "categoria": "roupas",
         },
         {
             "nome": "Havaianas",
             "preco": 49.99,
-            "categoria": "calçados",
+            "categoria": "sapatos_bolsas",
         },
         {
             "nome": "Copo",
             "preco": 2.99,
-            "categoria": "utensílios",
+            "categoria": "utensilios",
         },
         {
             "nome": "Camiseta",
             "preco": 39.99,
-            "categoria": "Roupas",
+            "categoria": "feminino",
+        },
+        {
+            "nome": "Chupeta",
+            "preco": 29.99,
+            "categoria": "bebe_maternidade",
         },
     ]
 
@@ -69,3 +81,7 @@ def produtos(categoria):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+
