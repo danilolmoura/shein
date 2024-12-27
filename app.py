@@ -1,3 +1,5 @@
+import random
+
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
@@ -14,11 +16,10 @@ class Produto(db.Model):
     nome = db.Column(db.String(), nullable=False)
     preco = db.Column(db.Float(), nullable=False)
     categoria = db.Column(db.String(), nullable=False)
-    descricao = db.Column(db.String(), nullable=True)
+    # descricao = db.Column(db.String(), nullable=True)
 
     def __repr__(self):
         return f'<Produto {self.id} {self.nome}>'
-
 
 with app.app_context():
     db.create_all()
@@ -26,13 +27,16 @@ with app.app_context():
 # Fim banco de dados
 
 
-categorias = {
+categorias= {
     "roupas": "Roupas",
     "feminino": "Feminino",
     "plus_size": "Plus Size",
     "masculino": "Masculino",
     "bebe_maternidade": "Bebê & Maternidade",
     "sapatos_bolsas": "Sapatos e Bolsa",
+    "unissex": "Unissex",
+    "maquiagem": "Maquiagem",
+    "todos":"Todos"
 }
 
 
@@ -47,6 +51,7 @@ def adicionar_produtos():
         nome = request.form['nome']
         preco = request.form['preco']
         categoria = request.form['categoria']
+        # descricao = request.form['descricao']
 
         produto = Produto(nome=nome, preco=preco, categoria=categoria)
 
@@ -58,40 +63,22 @@ def adicionar_produtos():
     return render_template('produtos_cadastrar.html', categorias=categorias)
 
 
-@app.route("/produtos/", defaults={"categoria": None})
+@app.route("/produtos/", defaults={"categoria": None}, methods=['GET', 'POST'])
 @app.route("/produtos/<categoria>")
 def produtos(categoria):
-    produtos = Produto.query.all()
+    # produtos = 
+    if request.method == 'POST': 
+        categoria = request.form.get('categoria')
+        if categoria == "todos":
+            categoria = None
 
-    if categoria != None:
-        itens_filtrados = []
-
-        for produto in produtos:
-            if produto['categoria'] == categoria:
-                itens_filtrados.append(produto)
+    if categoria == None:
+        produtos = Produto.query.all()
+    else:
+        produtos = Produto.query.filter_by(categoria=categoria).all()
         
-        produtos = itens_filtrados
 
-
-    return render_template('produtos.html', produtos = produtos)
-
-
-# @app.route("/produtos/<categoria>")
-# def categorias():
-#     produtos = [
-#         {
-#             "nome": "vestido",
-#             "preco": 79.99,
-#             "categoria": "roupas",
-#         },
-#         {
-#             "nome": "Havaianas",
-#             "preco": 49.99,
-#             "categoria": "calçados",
-#         },
-#     ]
-
-#     return render_template('produtos.html', produtos = produtos)
+    return render_template('produtos.html', produtos = produtos,categorias=categorias,total_produtos=len(produtos))
 
 
 if __name__ == '__main__':

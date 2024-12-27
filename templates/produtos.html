@@ -1,19 +1,79 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
-<div>
-    <div>
-        <h3>Aqui estão os produtos:</h3>
+
+<div style="display: flex;">
+
+
+    <div class="filtros">
+        <form action="/produtos" method="post">
+            Filtros
+            <div class="filtros-categoria">
+                {% for key, value in categorias.items() %}
+                <div class="filtros-categoria-item">
+                    <input type="radio" value="{{ key }}" name="categoria" id="categoria_{{key}}">
+                    <label for="categoria_{{key}}">
+                        {{value}}
+                    </label>
+                </div>
+                {% endfor %}
+                <div>
+                    <input type="submit" value="Filtrar">
+                </div>
+            </div>
+        </form>
     </div>
 
 
-    {% for produto in produtos %}
-    <div>
-        <p>Nome: {{produto.nome}}</p>
-        <p>Preço: {{produto.preco}}</p>
-        <p>Categoria: {{produto.categoria}}</p>
+    <div class="produtos">
+        {% if not produtos %}
+        <h2>
+            Nenhum produto encontrado
+        </h2>
+        {% else %}
+        <h2>
+            {{total_produtos}} Produtos encontrados
+        </h2>
+        {% endif %}
+
+        {% for produto in produtos %}
+
+        <div class="produto">
+            <div class="imagem-produto">
+                <img src="{{ url_for('static', filename='images/plus_size.png') }}" alt="" class="imagem-produto">
+            </div>
+
+
+            <div class="produto-nome">
+                <span class="desconto">-50%</span> {{ produto.nome }}
+            </div>
+
+            <div class="precos">
+                {% if produto.preco %}
+                <span class="preco-original">R${{ produto.preco }}</span>
+                {% endif %}
+                <span class="preco-desconto">R${{ produto.preco * (20 / 100) }}</span>
+
+            </div>
+
+            <div class="tag-produtos">
+                <div class="tag-envio">
+                    Envio Nacional
+                </div>
+                <div class="tag-vendedor">
+                    Vendedor Indicado
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <br />
+        <br />
+        {% endfor %}
     </div>
 
-    <br />
-    <br />
-    {% endfor %}
+
+
 </div>

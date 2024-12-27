@@ -98,6 +98,44 @@ body {
     color: #333;
 }
 
+
+.produto {
+    height: 340px;
+    width: 260px;
+    font-family: Arial, sans-serif;
+    margin: 30px 0;
+
+}
+
+.precos {
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.preco-desconto {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.preco-original {
+    color: #000000;
+    text-decoration: line-through;
+    font-size: 16px;
+}
+
+
+.desconto {
+    border: 1px solid rgb(250, 99, 56);
+    color: rgb(250, 99, 56);
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+
 /* Responsividade */
 @media (max-width: 768px) {
 
@@ -136,4 +174,53 @@ body {
     .category {
         width: 80%;
     }
+}
+
+.filtros {
+    width: 20%;
+}
+
+.produtos {
+    display: flex;
+    width: 80%;
+    flex-wrap: wrap;
+}
+
+.imagem-produto {
+    height: 320px;
+    width: 240px;
+}
+
+.produto-nome {
+    margin-top: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tag-produtos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 3px;
+}
+
+.tag-envio {
+    background-color: rgb(236, 252, 243);
+    color: rgb(92, 91, 91);
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.tag-vendedor {
+    background-color: rgb(255, 243, 230);
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    color: rgb(92, 91, 91);
+}
+
+.filtros-categoria {
+    margin-top: 3px;
+    display: flex;
+    flex-direction: column;
 }
