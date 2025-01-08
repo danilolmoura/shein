@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
 
+
+
 <div style="display: flex;">
-
-
     <div class="filtros">
         <form action="/produtos" method="post">
             Filtros
@@ -16,10 +16,21 @@
                     </label>
                 </div>
                 {% endfor %}
+
+                <div class="filtros-preco">
+                    <div class="filtros-preco">
+                        <input type="range" id="faixa_preco" name="faixa_preco" min="0" max="100" value="30" step="1" />
+                        <label for="faixa_preco">
+                            Faixa De Preço <span id="faixa_preco_valor">30</span> (BRL)
+                        </label>
+                    </div>
+                </div>
                 <div>
                     <input type="submit" value="Filtrar">
                 </div>
             </div>
+
+
         </form>
     </div>
 
@@ -77,3 +88,14 @@
 
 
 </div>
+
+
+
+<script>
+    const faixaPrecoInput = document.getElementById('faixa_preco');
+    const faixaPrecoValorLabel = document.getElementById('faixa_preco_valor');
+
+    faixaPrecoInput.addEventListener('change', function () {
+        faixaPrecoValorLabel.textContent = faixaPrecoInput.value;
+    });
+</script>

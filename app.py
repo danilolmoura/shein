@@ -5,7 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-
 # Configura banco de dados
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shein.db'
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = True
@@ -23,9 +22,6 @@ class Produto(db.Model):
 
 with app.app_context():
     db.create_all()
-
-# Fim banco de dados
-
 
 categorias= {
     "roupas": "Roupas",
@@ -69,17 +65,17 @@ def produtos(categoria):
     # produtos = 
     if request.method == 'POST': 
         categoria = request.form.get('categoria')
+        faixa_preco = request.form.get('faixa_preco')
         if categoria == "todos":
             categoria = None
-
-    if categoria == None:
-        produtos = Produto.query.all()
+        print(faixa_preco)
+        produtos = Produto.query.filter(Produto.categoria==categoria).filter(Produto.preco<=faixa_preco).all()
     else:
-        produtos = Produto.query.filter_by(categoria=categoria).all()
+        produtos = Produto.query.all()
         
 
     return render_template('produtos.html', produtos = produtos,categorias=categorias,total_produtos=len(produtos))
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=4000)
