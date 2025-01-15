@@ -1,7 +1,9 @@
+import os
 import random
 
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -9,16 +11,19 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shein.db'
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = True
 db = SQLAlchemy(app)
+UPLOAD_FOLDER="static/uploads"
 
 class Produto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(), nullable=False)
     preco = db.Column(db.Float(), nullable=False)
     categoria = db.Column(db.String(), nullable=False)
-    # descricao = db.Column(db.String(), nullable=True)
+    imagem= db.Column(db.String(), nullable=True) 
+    descricao = db.Column(db.String(), nullable=True)
 
     def __repr__(self):
         return f'<Produto {self.id} {self.nome}>'
+
 
 with app.app_context():
     db.create_all()
@@ -32,8 +37,14 @@ categorias= {
     "sapatos_bolsas": "Sapatos e Bolsa",
     "unissex": "Unissex",
     "maquiagem": "Maquiagem",
+    'acessorio': "Acessório",
     "todos":"Todos"
 }
+
+def produto_com_desconto(preco):
+    desconto = 0.25 
+    preco_com_desconto = preco * (1 - desconto)
+    return f"{preco_com_desconto:.2f}"
 
 
 @app.route("/")
@@ -47,9 +58,21 @@ def adicionar_produtos():
         nome = request.form['nome']
         preco = request.form['preco']
         categoria = request.form['categoria']
-        # descricao = request.form['descricao']
+        descricao = request.form['descricao']
+        imagem=request.files.get("imagem") 
+        import pdb 
+        pdb.set_trace()
+        
+        imagem_endereco=None
+        if imagem:
+            filename=secure_filename(imagem.filename)
+            imagem_endereco=os.path.join(UPLOAD_FOLDER, filename)
+            imagem.save(imagem_endereco)
+        
 
-        produto = Produto(nome=nome, preco=preco, categoria=categoria)
+        url_imagem = f"/{imagem_endereco}"
+        produto = Produto(nome=nome, preco=preco, categoria=categoria,descricao=descricao,imagem=url_imagem)
+    
 
         db.session.add(produto)
         db.session.commit()
@@ -74,8 +97,8 @@ def produtos(categoria):
         produtos = Produto.query.all()
         
 
-    return render_template('produtos.html', produtos = produtos,categorias=categorias,total_produtos=len(produtos))
-
+    return render_template('produtos.html', produtos = produtos,categorias=categorias,total_produtos=len(produtos), produto_com_desconto=produto_com_desconto)
+ 
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=4000)

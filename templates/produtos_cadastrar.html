@@ -1,6 +1,6 @@
 <div>
     <h1>Cadastrar Produtos</h1>
-    <form action="/produtos/cadastrar" method="POST">
+    <form action="/produtos/cadastrar" method="POST" enctype="multipart/form-data">
         <label for="nome">Nome</label>
         <input type="text" name="nome" id="nome">
 
@@ -16,6 +16,10 @@
 
         <label for="descricao">Descrição</label>
         <input type="text" name="descricao" id="descricao">
+
+        <label for="imagem">imagem do produto</label>
+        <input type="file" name="imagem" id="imagem" accept="image/*">
+
 
         <input type="submit" value="Cadastrar">
     </form>

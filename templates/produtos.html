@@ -1,8 +1,5 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
-
-
-
 <div style="display: flex;">
     <div class="filtros">
         <form action="/produtos" method="post">
@@ -29,8 +26,6 @@
                     <input type="submit" value="Filtrar">
                 </div>
             </div>
-
-
         </form>
     </div>
 
@@ -50,19 +45,19 @@
 
         <div class="produto">
             <div class="imagem-produto">
-                <img src="{{ url_for('static', filename='images/plus_size.png') }}" alt="" class="imagem-produto">
+                <img src="{{ produto.imagem }}" alt="" class="imagem-produto">
             </div>
 
 
             <div class="produto-nome">
-                <span class="desconto">-50%</span> {{ produto.nome }}
+                <span class="desconto">-25%</span> {{ produto.nome }}
             </div>
 
             <div class="precos">
                 {% if produto.preco %}
                 <span class="preco-original">R${{ produto.preco }}</span>
                 {% endif %}
-                <span class="preco-desconto">R${{ produto.preco * (20 / 100) }}</span>
+                <span class="preco-desconto">R${{ produto_com_desconto(produto.preco) }}</span>
 
             </div>
 
