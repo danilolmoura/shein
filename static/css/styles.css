@@ -36,8 +36,9 @@ body {
 }
 
 .logo h3 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-left: 20px;
+    letter-spacing: 5px;
 }
 
 .search-bar input {

@@ -24,6 +24,14 @@ class Produto(db.Model):
     def __repr__(self):
         return f'<Produto {self.id} {self.nome}>'
 
+carrinho_produto=db.Table("carrinho_produto",
+    db.Column ("carrinho_id",db.Integer, db.ForeignKey("carrinho.id"),primary_key=True),
+    db.Column ("produto_id",db.Integer, db.ForeignKey("produto.id"),primary_key=True))
+
+class Carrinho(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    produtos= db.Relationship("Produto",secondary=carrinho_produto)
+
 
 with app.app_context():
     db.create_all()
@@ -46,6 +54,11 @@ def produto_com_desconto(preco):
     preco_com_desconto = preco * (1 - desconto)
     return f"{preco_com_desconto:.2f}"
 
+def adicionar_carrinho(produto):
+    carrinho=Carrinho.query.first()
+    carrinho.produtos.append(produto)
+    db.session.add(carrinho)
+    db.session.commit()
 
 @app.route("/")
 def index():
@@ -96,9 +109,20 @@ def produtos(categoria):
     else:
         produtos = Produto.query.all()
         
+    carrinho = Carrinho.query.first()
+    
 
-    return render_template('produtos.html', produtos = produtos,categorias=categorias,total_produtos=len(produtos), produto_com_desconto=produto_com_desconto)
+    return render_template(
+        'produtos.html',
+        produtos = produtos,
+        categorias=categorias,
+        total_produtos=len(produtos), 
+        produto_com_desconto=produto_com_desconto, 
+        produtos_carrinho=carrinho.produtos,
+        adicionar_carrinho=adicionar_carrinho)
  
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=4000)
+
+

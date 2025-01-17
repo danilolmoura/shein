@@ -1,5 +1,22 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
+<header class="header">
+    <div class="logo">
+        <h3>SHEIN</h3>
+
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="buscar" name="buscar" placeholder="Insira um produto">
+    </div>
+
+    <div class="user-cart">
+        <img src="{{ url_for('static', filename='images/contas.png') }}" alt="Contas" class="icon">
+        <img src="{{ url_for('static', filename='images/carrinho.png') }}" alt="Carrinho" class="icon">
+    </div>
+</header>
+
+
 <div style="display: flex;">
     <div class="filtros">
         <form action="/produtos" method="post">
@@ -27,6 +44,8 @@
                 </div>
             </div>
         </form>
+
+        {{produtos_carrinho}}
     </div>
 
 
@@ -58,8 +77,14 @@
                 <span class="preco-original">R${{ produto.preco }}</span>
                 {% endif %}
                 <span class="preco-desconto">R${{ produto_com_desconto(produto.preco) }}</span>
-
+                <div class="carrinho">
+                    <button onclick={{adicionar_carrinho(produto)}}>
+                        + carrinho
+                    </button>
+                </div>
             </div>
+
+
 
             <div class="tag-produtos">
                 <div class="tag-envio">
@@ -73,9 +98,6 @@
 
         </div>
 
-
-
-        <br />
         <br />
         {% endfor %}
     </div>
