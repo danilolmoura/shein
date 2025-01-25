@@ -78,9 +78,13 @@
                 {% endif %}
                 <span class="preco-desconto">R${{ produto_com_desconto(produto.preco) }}</span>
                 <div class="carrinho">
-                    <button onclick={{adicionar_carrinho(produto)}}>
-                        + carrinho
-                    </button>
+                    <form action="/adicionar_carrinho" method="post">
+                        <input type="hidden" name="produto_id" value="{{produto.id}}">
+                        <button>
+                            + carrinho
+
+                        </button>
+                    </form>
                 </div>
             </div>
 

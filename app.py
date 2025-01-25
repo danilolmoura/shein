@@ -54,7 +54,10 @@ def produto_com_desconto(preco):
     preco_com_desconto = preco * (1 - desconto)
     return f"{preco_com_desconto:.2f}"
 
-def adicionar_carrinho(produto):
+def adicionar_produto_carrinho(produto_id):
+    print("________")
+    print("________")
+    produto=Produto.query.get(produto_id)
     carrinho=Carrinho.query.first()
     carrinho.produtos.append(produto)
     db.session.add(carrinho)
@@ -63,6 +66,12 @@ def adicionar_carrinho(produto):
 @app.route("/")
 def index():
     return render_template('index.html', categorias=categorias)
+
+@app.route("/adicionar_carrinho",  methods=["POST"])
+def adicionar_carrinho():
+    produto_id=request.form.get("produto_id") 
+    adicionar_produto_carrinho(produto_id) 
+    return render_template('index.html', categorias=categorias) 
 
 
 @app.route("/produtos/cadastrar", methods=['GET', 'POST'])
